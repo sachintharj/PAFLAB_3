@@ -72,7 +72,7 @@ public class Item {
 	 return "Error while connecting to the database for reading.";
 	 }
 	 // Prepare the html table to be displayed
-	 output = "<table border=‘1’><tr><th>Item Code</th>"
+	 output = "<table border=‘1’ class=\"table table-dark\"><tr><th>Item Code</th>"
 	 +"<th>Item Name</th><th>Item Price</th>"
 	 + "<th>Item Description</th>"
 	 + "<th>Update</th><th>Remove</th></tr>";
@@ -96,10 +96,10 @@ public class Item {
 	output += "<td>" + itemDesc + "</td>";
 	 // buttons
 	output += "<td><input name='btnUpdate' "
-	         + " type='button' value='Update'></td>"
+	         + " type='button' value='Update' class = 'btn btn-success'></td>"
 	         + "<td><form method='post' action='itemsClass.jsp'>"
 	         + "<input name='btnRemove' "
-	         + " type='submit' value='Remove'>"
+	         + " type='submit' value='Remove' class='btn btn-danger'>"
 	         + "<input name='itemID' type='hidden' "
 	         + " value='" + itemID + "'>" + "</form></td></tr>";
 	 }
@@ -132,6 +132,12 @@ public class Item {
 			 String query = " Update items set itemCode='"+code+"',itemName = '"+name+"',itemPrice = '"+price+"',itemDesc = '"+desc+"'"+ "where itemID ='"+itemID+"'";
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
 			
+			 preparedStmt.setInt(1, 0);
+			 preparedStmt.setString(2, code);
+			 preparedStmt.setString(3, name);
+			 preparedStmt.setDouble(4, Double.parseDouble(price));
+			 preparedStmt.setString(5, desc); 
+			 
 			//execute the statement
 			 preparedStmt.execute(); 
 			 con.close(); 
@@ -174,5 +180,5 @@ public class Item {
 	 }
 	return output;
 	}
-
+	
 }
